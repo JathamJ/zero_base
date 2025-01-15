@@ -38,7 +38,7 @@ func (c *Client) DoRequest(r *http.Request) (*http.Response, error) {
 		reqBodyBytes, _ = io.ReadAll(r.Body)
 		respBodyBytes, _ = io.ReadAll(resp.Body)
 		// 重置请求体
-		r.Body = io.NopCloser(bytes.NewBuffer(respBodyBytes))
+		resp.Body = io.NopCloser(bytes.NewBuffer(respBodyBytes))
 		logx.WithContext(r.Context()).Debugf("http do request, [%s]%s, body: %s, headers: %v, statusCode: %d, respHeader: %v, respBody: %s", r.Method, r.RequestURI, string(reqBodyBytes), r.Header, resp.StatusCode, resp.Header, string(respBodyBytes))
 	}()
 	resp, err = c.Service.DoRequest(r)
